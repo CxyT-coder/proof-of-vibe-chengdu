@@ -1,6 +1,6 @@
 # 活动五项准备清单
 
-按用户收到的活动通知逐项落实。以下“已完成”只表示本机或项目中已实际具备对应组件，钱包操作、线上部署和提交记录仍需实际验证。
+按用户收到的活动通知逐项落实。本清单记录已完成的本机准备、源码上传和 GitHub Pages 备用发布；真实 Phantom 签名、Devnet 签到交易与活动正式提交仍需分别完成。
 
 ## 1. 电脑、充电器、手机与 Ubuntu
 
@@ -43,16 +43,16 @@ Phantom 的测试网切换步骤可见[官方说明](https://help.phantom.com/ar
 ## 4. GitHub 与网页部署
 
 - 源码已上传 [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)，仓库链接已填入 [提交材料](SUBMISSION.md)。
-- [GitHub Actions 本次检查](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)已成功完成依赖安装、类型检查、自动测试与生产构建。
+- [最新 GitHub Actions 检查](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)已成功完成依赖安装、类型检查、自动测试与生产构建。
 - Vercel 的相关开发 Skill、MCP 与 CLI 已配置；官方登录页面提示无法完成登录，需要账户持有人通过 [账号恢复表单](https://vercel.com/accountrecovery)申请恢复访问。
-- GitHub Pages 已启用为备用发布渠道，Next.js 静态导出与 Actions 部署正在验证；[备用目标地址](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)尚未通过公开访问检查。
-- 部署完成后，使用真实公开 URL 再试一次读取签到墙、连接 Phantom 和查询 Devnet 余额，然后更新提交材料。
+- [GitHub Pages 部署流程](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586402980)已成功完成；[公开 demo（备用发布）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)已上线并通过浏览器检查。
+- 公开页面的 Chrome 桌面与手机视口、钱包菜单和输入预览已验证，真实 Devnet RPC 返回 HTTP 200，页面与静态资源错误均为 0。真实 Phantom 授权签名及签到仍由钱包持有人完成。
 
 [Vercel AI 开发资源](https://vercel.com/docs/agent-resources)、[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)。恢复 Vercel 访问后，仍可导入现有仓库，使用 Node.js 24.x 与默认 Next.js 构建设置部署。
 
 Cloudflare 可作为后续选择：按 [官方静态 Next.js 指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)配置静态导出，选择 `Next.js (Static HTML Export)` 预设、`npx next build` 构建命令和 `out` 输出目录。针对本项目设置构建环境变量 `STATIC_EXPORT=1`，将 `NEXT_PUBLIC_BASE_PATH` 留空；需要 AI 平台工具时参考 [官方 Agent Setup](https://developers.cloudflare.com/agent-setup/)。
 
-GitHub 源码与 CI 记录已可用于提交材料；公开网页地址待备用部署完成并验证后补充。
+源码、公开网页 URL、CI 与部署成功记录均已填入 [提交材料](SUBMISSION.md)。活动指定入口由主办方提供后，再正式提交。
 
 ### Vercel 账号恢复说明
 
@@ -70,7 +70,7 @@ Please help me restore access to my account so I can complete the deployment.
 
 项目来自官方 Kit Next.js 模板，源提交为 `aab62d27b01d44c6d2eba3c6da6d3bf038726ecc`，沿用模板已有主要依赖版本。
 
-本地 Ubuntu 生产页面已通过桌面与手机尺寸的浏览器检查，真实 Devnet RPC 请求返回 HTTP 200；构建、类型检查与自动测试结果可查看 [CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)。真实 Phantom 签名与链上签到仍需钱包持有人完成。
+本地 Ubuntu 生产页面和 [公开 demo](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)均已通过浏览器检查，真实 Devnet RPC 请求返回 HTTP 200；构建、类型检查与自动测试结果可查看 [最新 CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)。真实 Phantom 签名与链上签到仍需钱包持有人完成。
 
 在 PowerShell 启动和检查：
 

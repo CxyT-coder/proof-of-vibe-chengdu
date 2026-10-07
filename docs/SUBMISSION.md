@@ -29,17 +29,18 @@ Proof of Vibe 是面向线下社区活动的 Solana Devnet 签到网页。参与
 
 ## 提交链接与验证记录
 
-源码已上传 GitHub，CI 检查已成功完成。Vercel CLI 已安装，账号登录正在处理中；公开 demo URL 待实际部署成功后填写。
+源码已上传 GitHub，最新 CI 与 Pages 部署均成功。GitHub Pages 备用 demo 已真实上线并通过浏览器验证；Vercel 原登录受阻，账号恢复尚未完成。
 
-| 项目                 | 真实记录                                                                                                                                                            |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GitHub 仓库          | [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)                                                                             |
-| CI 检查              | [GitHub Actions 成功运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)：Node.js 24、依赖安装、类型检查、自动测试、生产构建全部成功 |
-| 在线 Demo            | 待部署成功后填写                                                                                                                                                    |
-| Devnet 签到交易      | 待参与者在 Phantom 确认签名并获得链上确认后填写                                                                                                                     |
-| 演示截图或视频       | [实际页面预览](images/hero.png)；演示视频可按演示稿录制                                                                                                             |
-| 构建、类型检查与测试 | 2026-10-07：生产构建、TypeScript、10/10 测试、桌面与手机浏览器检查通过；主机浏览器读取 Devnet 返回 HTTP 200                                                         |
-| 活动指定提交入口     | 未提供，按主办方现场要求提交                                                                                                                                        |
+| 项目                 | 真实记录                                                                                                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| GitHub 仓库          | [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)                                                                                  |
+| CI 检查              | [最新 GitHub Actions 成功运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)：Node.js 24、依赖安装、类型检查、自动测试、生产构建全部成功 |
+| 在线 Demo            | [Proof of Vibe（GitHub Pages 备用发布）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)                                                                            |
+| 部署记录             | [GitHub Pages 部署成功](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586402980)                                                                    |
+| Devnet 签到交易      | 待参与者在 Phantom 确认签名并获得链上确认后填写                                                                                                                          |
+| 演示截图或视频       | [实际页面预览](images/hero.png)；演示视频可按演示稿录制                                                                                                                  |
+| 构建、类型检查与测试 | 2026-10-07：生产构建、类型检查、自动测试通过；公开页面 Chrome 桌面与手机视口、钱包菜单、输入预览验证通过；真实 Devnet HTTP 200，页面错误 0、静态资源错误 0               |
+| 活动指定提交入口     | 未提供，按主办方现场要求提交                                                                                                                                             |
 
 ## 当前边界与后续计划
 

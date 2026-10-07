@@ -2,7 +2,7 @@
 
 一个面向 Solana 成都活动的中文 Devnet demo：连接 Phantom，留下昵称和一句话，将签到记录写入 Solana，并在公开签到墙与区块浏览器中验证。
 
-[GitHub 源码](https://github.com/CxyT-coder/proof-of-vibe-chengdu) · [CI 检查成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372) · 在线演示地址部署后补充。
+[在线 Demo（GitHub Pages 备用）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/) · [GitHub 源码](https://github.com/CxyT-coder/proof-of-vibe-chengdu) · [最新 CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)
 
 ![Proof of Vibe 页面预览](docs/images/hero.png)
 
@@ -87,7 +87,9 @@ NEXT_PUBLIC_SOLANA_WS_URL=wss://api.devnet.solana.com
 
 ## 验证与测试
 
-源码已上传 GitHub。[GitHub Actions 本次运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)已成功完成 Node.js 24 环境下的依赖安装、TypeScript 检查、自动测试与生产构建。本机 Ubuntu 的生产页面也已通过浏览器检查，真实 Devnet RPC 请求返回 HTTP 200。
+源码已上传 GitHub。[最新 CI 运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)已成功完成 Node.js 24 环境下的依赖安装、TypeScript 检查、自动测试与生产构建。[GitHub Pages 部署](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586402980)也已成功。
+
+2026-10-07：本机 Ubuntu 生产页面和公开 demo 均已通过浏览器检查。公开页面的 Chrome 桌面与手机视口、钱包菜单、昵称与留言输入预览已验证；真实 Devnet RPC 返回 HTTP 200，页面错误与静态资源错误均为 0。
 
 Windows 中运行 WSL 检查脚本：
 
@@ -111,17 +113,17 @@ npm run format:check
 
 - [活动准备清单](docs/PREPARATION.md)：按活动五项要求逐项核对。
 - [60–90 秒演示稿](docs/DEMO_SCRIPT.md)：现场演示时可直接照着操作。
-- [提交介绍](docs/SUBMISSION.md)：项目介绍、技术路线与待补的真实链接。
+- [提交介绍](docs/SUBMISSION.md)：项目介绍、技术路线、公开 demo 和验证记录。
 
 源码已发布至 [GitHub 仓库](https://github.com/CxyT-coder/proof-of-vibe-chengdu)。Vercel CLI 已安装，但官方登录页面提示无法完成登录，要求通过 [Account Recovery](https://vercel.com/accountrecovery)恢复账号。可复制的英文项目说明见 [准备清单](docs/PREPARATION.md)。
 
-当前启用 GitHub Pages 作为备用发布渠道，正在验证 Next.js 静态导出与 Actions 部署。[备用目标地址（待部署验证）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)尚不能作为已验证的在线 demo 提交；部署成功并通过浏览器检查后再更新提交材料。
+GitHub Pages 备用发布已完成：[打开在线 demo](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)。Next.js 静态导出与 Actions 部署成功，公开页面已通过浏览器检查，可用于展示和提交项目链接。Vercel 账号恢复尚未完成。
 
 Vercel 登录完成后导入仓库，使用 Next.js 框架、Node.js 24.x、npm run build 和默认输出设置。只有更换 RPC 时才需要添加上述两项环境变量。生产配置应继续使用 Devnet。[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)
 
 后续也可将 Next.js 静态导出的 `out` 目录部署到 Cloudflare Pages，选择 `Next.js (Static HTML Export)` 预设，构建命令为 `npx next build`，设置构建环境变量 `STATIC_EXPORT=1`，并将 `NEXT_PUBLIC_BASE_PATH` 留空。配置与操作见 [Cloudflare 官方静态 Next.js 部署指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)。钱包连接和 Devnet RPC 请求继续在浏览器中执行，仍需验证 RPC 对公开网站来源的访问权限。
 
-本机的 .tools 运行时、node_modules、.env.local 与构建产物已列入忽略规则，不应上传到仓库。部署成功后，请实测在线 URL 的钱包连接和 RPC 读取，再在提交材料中填入真实网址。
+本机的 .tools 运行时、node_modules、.env.local 与构建产物已列入忽略规则，不应上传到仓库。真实 Phantom 授权签名和 Devnet 签到交易仍需钱包持有人完成；活动提交入口按主办方要求填写。
 
 ## 技术与边界
 
