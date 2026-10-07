@@ -53,6 +53,8 @@ Cloudflare 页面也已验证 HTTP 200、Chrome 桌面与手机视口、钱包�
 
 本分支已实现兼容补丁：在模拟前显式设置计算预算和 0 优先费，并保留签名后的严格一致性检查。补丁已通过本地 TypeScript、ESLint 和全部 14 项测试，包括模拟 Phantom 自动补费规则及实际内容变化时停止广播。Cloudflare 管理员仍需同步更新，真实 Devnet 签到交易待钱包持有人复测后填写。可复制的部署更新步骤见 [准备清单](PREPARATION.md)。
 
+修复提交 `ba0e01f` 的 [CI](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37592652786)与 [GitHub Pages 部署](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37592652795)均成功。备用页面已更新并再次通过桌面/手机、钱包菜单与 Devnet HTTP 200 检查；2026-10-07 检查时 Cloudflare 仍为此前版本，需管理员同步。
+
 ## 当前边界与后续计划
 
 公共墙查询最近 20 个相关交易候选并过滤签到，不提供完整历史或精确参与人数；公共 RPC 存在限流，Devnet 记录不承诺长期保留。昵称是用户自行填写，活动标记公开，没有真人身份验证或每人一次的链上规则，当前不能用于正式门禁或有价值奖励的发放。

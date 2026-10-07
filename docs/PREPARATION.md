@@ -46,6 +46,8 @@ Phantom 的测试网切换步骤可见[官方说明](https://help.phantom.com/ar
 
 本分支已实现模拟前显式设置计算预算和 0 优先费的兼容补丁，并保留签名后的严格内容检查；本地类型检查与 14 项测试通过。Cloudflare 管理员需同步本分支；完成后由钱包持有人重新模拟、签名，再验证 Devnet 确认和 Explorer 链接。
 
+修复提交 `ba0e01f` 已通过 [CI](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37592652786)，并已成功 [发布至 GitHub Pages](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37592652795)。备用页面的新版本、桌面/手机视口、钱包菜单和 Devnet HTTP 200 已验证；检查时 Cloudflare 尚未同步此版本。
+
 ## 4. GitHub 与网页部署
 
 - 源码已上传 [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)，仓库链接已填入 [提交材料](SUBMISSION.md)。

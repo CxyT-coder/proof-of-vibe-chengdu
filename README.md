@@ -82,6 +82,8 @@ Phantom 会在符合条件的交易签名时自动添加优先费，`signTransac
 
 兼容补丁已实现：使用现有 Kit 7.1.1 在模拟前明确设置 0 优先费，根据模拟结果估计计算预算并增加 10% 余量，再模拟最终消息；保留签名后的严格内容检查。本地 TypeScript、ESLint 与全部 14 项测试通过，包括模拟 Phantom 自动补费规则下的签名确认，以及交易变化时阻止广播。GitHub Pages 会自动部署本分支；Cloudflare 管理员仍需同步修复并由钱包持有人完成真实 Phantom 复测。给部署者的更新步骤见 [准备清单](docs/PREPARATION.md)。
 
+修复提交 `ba0e01f` 的 [CI](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37592652786)和 [GitHub Pages 发布](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37592652795)均成功，备用页面已通过新的浏览器检查。2026-10-07 检查时，Cloudflare 页面仍未出现此提交的新提示文案，需部署者核对并同步版本。
+
 ## 配置 RPC
 
 默认使用公共 Devnet RPC。需要自己的 RPC 时，复制 .env.example 为 .env.local，填写 Devnet HTTP 和 WebSocket 地址，然后重启开发服务。
