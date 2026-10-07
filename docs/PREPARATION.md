@@ -44,13 +44,27 @@ Phantom 的测试网切换步骤可见[官方说明](https://help.phantom.com/ar
 
 - 源码已上传 [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)，仓库链接已填入 [提交材料](SUBMISSION.md)。
 - [GitHub Actions 本次检查](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)已成功完成依赖安装、类型检查、自动测试与生产构建。
-- 当前选择 Vercel 部署 Next.js；相关开发 Skill、MCP 与 CLI 已配置，账号登录正在处理中，账户持有人仍需完成登录授权。
-- 授权后导入仓库，选择 Node.js 24.x，完成构建并取得公开 URL。
-- 用该公开 URL 再试一次读取签到墙、连接 Phantom 和查询 Devnet 余额。
+- Vercel 的相关开发 Skill、MCP 与 CLI 已配置；官方登录页面提示无法完成登录，需要账户持有人通过 [账号恢复表单](https://vercel.com/accountrecovery)申请恢复访问。
+- GitHub Pages 已启用为备用发布渠道，Next.js 静态导出与 Actions 部署正在验证；[备用目标地址](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)尚未通过公开访问检查。
+- 部署完成后，使用真实公开 URL 再试一次读取签到墙、连接 Phantom 和查询 Devnet 余额，然后更新提交材料。
 
-[Vercel AI 开发资源](https://vercel.com/docs/agent-resources)、[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)。如活动要求改用 Cloudflare，再按[官方 Agent Setup](https://developers.cloudflare.com/agent-setup/)适配。
+[Vercel AI 开发资源](https://vercel.com/docs/agent-resources)、[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)。恢复 Vercel 访问后，仍可导入现有仓库，使用 Node.js 24.x 与默认 Next.js 构建设置部署。
 
-GitHub 源码与 CI 记录已可用于提交材料；公开网页地址待 Vercel 实际部署完成后补充。
+Cloudflare 可作为后续选择：按 [官方静态 Next.js 指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)配置静态导出，选择 `Next.js (Static HTML Export)` 预设、`npx next build` 构建命令和 `out` 输出目录。针对本项目设置构建环境变量 `STATIC_EXPORT=1`，将 `NEXT_PUBLIC_BASE_PATH` 留空；需要 AI 平台工具时参考 [官方 Agent Setup](https://developers.cloudflare.com/agent-setup/)。
+
+GitHub 源码与 CI 记录已可用于提交材料；公开网页地址待备用部署完成并验证后补充。
+
+### Vercel 账号恢复说明
+
+登录页显示“无法完成登录，请填写账户恢复表单”。账户持有人可自己打开 [Account Recovery](https://vercel.com/accountrecovery)，填写实际账户信息，并粘贴以下英文说明；这是准备好的表单草稿。
+
+```text
+I am trying to sign in to Vercel to deploy Proof of Vibe, a Next.js demo for a Solana Chengdu event. The login page says it cannot complete my login and directs me to the account recovery form.
+
+The project uses Phantom wallet connection and Solana Devnet to record public event check-ins. Source code: https://github.com/CxyT-coder/proof-of-vibe-chengdu
+
+Please help me restore access to my account so I can complete the deployment.
+```
 
 ## 5. 跑起模板并完成一次演示
 

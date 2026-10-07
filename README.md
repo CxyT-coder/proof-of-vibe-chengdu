@@ -113,9 +113,13 @@ npm run format:check
 - [60–90 秒演示稿](docs/DEMO_SCRIPT.md)：现场演示时可直接照着操作。
 - [提交介绍](docs/SUBMISSION.md)：项目介绍、技术路线与待补的真实链接。
 
-源码已发布至 [GitHub 仓库](https://github.com/CxyT-coder/proof-of-vibe-chengdu)。Vercel CLI 已安装，账号登录正在处理中，在线 demo 尚未部署完成。
+源码已发布至 [GitHub 仓库](https://github.com/CxyT-coder/proof-of-vibe-chengdu)。Vercel CLI 已安装，但官方登录页面提示无法完成登录，要求通过 [Account Recovery](https://vercel.com/accountrecovery)恢复账号。可复制的英文项目说明见 [准备清单](docs/PREPARATION.md)。
+
+当前启用 GitHub Pages 作为备用发布渠道，正在验证 Next.js 静态导出与 Actions 部署。[备用目标地址（待部署验证）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)尚不能作为已验证的在线 demo 提交；部署成功并通过浏览器检查后再更新提交材料。
 
 Vercel 登录完成后导入仓库，使用 Next.js 框架、Node.js 24.x、npm run build 和默认输出设置。只有更换 RPC 时才需要添加上述两项环境变量。生产配置应继续使用 Devnet。[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)
+
+后续也可将 Next.js 静态导出的 `out` 目录部署到 Cloudflare Pages，选择 `Next.js (Static HTML Export)` 预设，构建命令为 `npx next build`，设置构建环境变量 `STATIC_EXPORT=1`，并将 `NEXT_PUBLIC_BASE_PATH` 留空。配置与操作见 [Cloudflare 官方静态 Next.js 部署指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)。钱包连接和 Devnet RPC 请求继续在浏览器中执行，仍需验证 RPC 对公开网站来源的访问权限。
 
 本机的 .tools 运行时、node_modules、.env.local 与构建产物已列入忽略规则，不应上传到仓库。部署成功后，请实测在线 URL 的钱包连接和 RPC 读取，再在提交材料中填入真实网址。
 
