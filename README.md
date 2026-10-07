@@ -2,7 +2,7 @@
 
 一个面向 Solana 成都活动的中文 Devnet demo：连接 Phantom，留下昵称和一句话，将签到记录写入 Solana，并在公开签到墙与区块浏览器中验证。
 
-[GitHub 源码](https://github.com/CxyT-coder/proof-of-vibe-chengdu) · 在线演示地址部署后补充。
+[GitHub 源码](https://github.com/CxyT-coder/proof-of-vibe-chengdu) · [CI 检查成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372) · 在线演示地址部署后补充。
 
 ![Proof of Vibe 页面预览](docs/images/hero.png)
 
@@ -87,6 +87,8 @@ NEXT_PUBLIC_SOLANA_WS_URL=wss://api.devnet.solana.com
 
 ## 验证与测试
 
+源码已上传 GitHub。[GitHub Actions 本次运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)已成功完成 Node.js 24 环境下的依赖安装、TypeScript 检查、自动测试与生产构建。本机 Ubuntu 的生产页面也已通过浏览器检查，真实 Devnet RPC 请求返回 HTTP 200。
+
 Windows 中运行 WSL 检查脚本：
 
 ```powershell
@@ -111,7 +113,9 @@ npm run format:check
 - [60–90 秒演示稿](docs/DEMO_SCRIPT.md)：现场演示时可直接照着操作。
 - [提交介绍](docs/SUBMISSION.md)：项目介绍、技术路线与待补的真实链接。
 
-将仓库推到 GitHub 后，在 Vercel 导入仓库，使用 Next.js 框架、Node.js 24.x、npm run build 和默认输出设置。只有更换 RPC 时才需要添加上述两项环境变量。生产配置应继续使用 Devnet。[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)
+源码已发布至 [GitHub 仓库](https://github.com/CxyT-coder/proof-of-vibe-chengdu)。Vercel CLI 已安装，账号登录正在处理中，在线 demo 尚未部署完成。
+
+Vercel 登录完成后导入仓库，使用 Next.js 框架、Node.js 24.x、npm run build 和默认输出设置。只有更换 RPC 时才需要添加上述两项环境变量。生产配置应继续使用 Devnet。[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)
 
 本机的 .tools 运行时、node_modules、.env.local 与构建产物已列入忽略规则，不应上传到仓库。部署成功后，请实测在线 URL 的钱包连接和 RPC 读取，再在提交材料中填入真实网址。
 

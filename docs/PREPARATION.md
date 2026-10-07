@@ -42,19 +42,21 @@ Phantom 的测试网切换步骤可见[官方说明](https://help.phantom.com/ar
 
 ## 4. GitHub 与网页部署
 
-- 本机 GitHub 已登录账户 `CxyT-coder`；提交成功以远端仓库实际可访问为准。
-- 代码上传后的仓库 URL 填入 [提交材料](SUBMISSION.md)。
-- 当前选择 Vercel 部署 Next.js；相关开发 Skill 与 MCP 已配置，Vercel OAuth 仍需要账户持有人在登录页面完成授权。
+- 源码已上传 [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)，仓库链接已填入 [提交材料](SUBMISSION.md)。
+- [GitHub Actions 本次检查](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)已成功完成依赖安装、类型检查、自动测试与生产构建。
+- 当前选择 Vercel 部署 Next.js；相关开发 Skill、MCP 与 CLI 已配置，账号登录正在处理中，账户持有人仍需完成登录授权。
 - 授权后导入仓库，选择 Node.js 24.x，完成构建并取得公开 URL。
 - 用该公开 URL 再试一次读取签到墙、连接 Phantom 和查询 Devnet 余额。
 
 [Vercel AI 开发资源](https://vercel.com/docs/agent-resources)、[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)。如活动要求改用 Cloudflare，再按[官方 Agent Setup](https://developers.cloudflare.com/agent-setup/)适配。
 
-本地能打开页面、GitHub 已登录、部署工具已安装，都不能代替实际上传与发布的结果。
+GitHub 源码与 CI 记录已可用于提交材料；公开网页地址待 Vercel 实际部署完成后补充。
 
 ## 5. 跑起模板并完成一次演示
 
 项目来自官方 Kit Next.js 模板，源提交为 `aab62d27b01d44c6d2eba3c6da6d3bf038726ecc`，沿用模板已有主要依赖版本。
+
+本地 Ubuntu 生产页面已通过桌面与手机尺寸的浏览器检查，真实 Devnet RPC 请求返回 HTTP 200；构建、类型检查与自动测试结果可查看 [CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37584990372)。真实 Phantom 签名与链上签到仍需钱包持有人完成。
 
 在 PowerShell 启动和检查：
 
