@@ -1,0 +1,14 @@
+.git
+.github
+.agents
+.setup
+.tools
+qa-artifacts
+node_modules
+.next
+.next-static
+out
+coverage
+.env*
+!.env.example
+*.tsbuildinfo
