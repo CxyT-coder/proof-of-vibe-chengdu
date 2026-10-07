@@ -557,7 +557,7 @@ export default function Home() {
                       </>
                     ) : (
                       <span>
-                        可以检查 Devnet 测试币余额后重试，或稍后再次提交。
+                        请按上方提示处理后重新模拟，并核对钱包确认页。
                       </span>
                     )}
                   </div>

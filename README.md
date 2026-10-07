@@ -2,7 +2,7 @@
 
 一个面向 Solana 成都活动的中文 Devnet demo：连接 Phantom，留下昵称和一句话，将签到记录写入 Solana，并在公开签到墙与区块浏览器中验证。
 
-[在线 Demo（GitHub Pages 备用）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/) · [GitHub 源码](https://github.com/CxyT-coder/proof-of-vibe-chengdu) · [最新 CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)
+[在线 Demo（同事部署的 Cloudflare Pages）](https://proof-of-vibe-chengdu.pages.dev/) · [GitHub Pages 备用](https://cxyt-coder.github.io/proof-of-vibe-chengdu/) · [GitHub 源码](https://github.com/CxyT-coder/proof-of-vibe-chengdu) · [已发布版本 CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)
 
 ![Proof of Vibe 页面预览](docs/images/hero.png)
 
@@ -74,6 +74,14 @@ confirmed 表示交易已获得网络确认，区别于只生成签名或只广�
 
 助记词、私钥和钱包恢复文件不需要提供给本项目或 AI。页面模拟通过也不能替代用户在钱包弹窗中检查最终交易。
 
+### 当前 Phantom 签名兼容问题
+
+Cloudflare 版本在用户签名后出现过“钱包修改了已审核交易内容”的提示。这是应用比较已审核与签名后交易内容时触发的检查，发生在应用广播之前，本次应用没有发送该笔交易。
+
+Phantom 会在符合条件的交易签名时自动添加优先费，`signTransaction` 也适用。这种合法的费用调整可能导致交易字节变化，与当前严格一致性检查冲突，是此次报错的可能原因。[Phantom 官方优先费说明](https://docs.phantom.com/developer-powertools/solana-priority-fees)
+
+兼容补丁已实现：使用现有 Kit 7.1.1 在模拟前明确设置 0 优先费，根据模拟结果估计计算预算并增加 10% 余量，再模拟最终消息；保留签名后的严格内容检查。本地 TypeScript、ESLint 与全部 14 项测试通过，包括模拟 Phantom 自动补费规则下的签名确认，以及交易变化时阻止广播。GitHub Pages 会自动部署本分支；Cloudflare 管理员仍需同步修复并由钱包持有人完成真实 Phantom 复测。给部署者的更新步骤见 [准备清单](docs/PREPARATION.md)。
+
 ## 配置 RPC
 
 默认使用公共 Devnet RPC。需要自己的 RPC 时，复制 .env.example 为 .env.local，填写 Devnet HTTP 和 WebSocket 地址，然后重启开发服务。
@@ -87,9 +95,11 @@ NEXT_PUBLIC_SOLANA_WS_URL=wss://api.devnet.solana.com
 
 ## 验证与测试
 
-源码已上传 GitHub。[最新 CI 运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)已成功完成 Node.js 24 环境下的依赖安装、TypeScript 检查、自动测试与生产构建。[GitHub Pages 部署](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586402980)也已成功。
+源码已上传 GitHub。[已发布版本 CI 运行](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)已成功完成 Node.js 24 环境下的依赖安装、TypeScript 检查、自动测试与生产构建。[GitHub Pages 部署](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586402980)也已成功。
 
 2026-10-07：本机 Ubuntu 生产页面和公开 demo 均已通过浏览器检查。公开页面的 Chrome 桌面与手机视口、钱包菜单、昵称与留言输入预览已验证；真实 Devnet RPC 返回 HTTP 200，页面错误与静态资源错误均为 0。
+
+同事发布的 [Cloudflare Pages 页面](https://proof-of-vibe-chengdu.pages.dev/)也已通过 Chrome 桌面与手机视口、钱包菜单和输入预览检查，HTTP 200、Devnet RPC HTTP 200，页面与静态资源错误均为 0。此记录覆盖页面交互与公开 RPC 读取；真实 Phantom 签名及签到确认仍待修复后复测。
 
 Windows 中运行 WSL 检查脚本：
 
@@ -117,11 +127,13 @@ npm run format:check
 
 源码已发布至 [GitHub 仓库](https://github.com/CxyT-coder/proof-of-vibe-chengdu)。Vercel CLI 已安装，但官方登录页面提示无法完成登录，要求通过 [Account Recovery](https://vercel.com/accountrecovery)恢复账号。可复制的英文项目说明见 [准备清单](docs/PREPARATION.md)。
 
+同事另发布了 [Cloudflare Pages demo](https://proof-of-vibe-chengdu.pages.dev/)。公开 URL 只能说明托管在 Cloudflare Pages，无法据此确认所属账户或管理员；归属需部署者在 Cloudflare 后台查看项目所在账户与成员权限。
+
 GitHub Pages 备用发布已完成：[打开在线 demo](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)。Next.js 静态导出与 Actions 部署成功，公开页面已通过浏览器检查，可用于展示和提交项目链接。Vercel 账号恢复尚未完成。
 
 Vercel 登录完成后导入仓库，使用 Next.js 框架、Node.js 24.x、npm run build 和默认输出设置。只有更换 RPC 时才需要添加上述两项环境变量。生产配置应继续使用 Devnet。[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)
 
-后续也可将 Next.js 静态导出的 `out` 目录部署到 Cloudflare Pages，选择 `Next.js (Static HTML Export)` 预设，构建命令为 `npx next build`，设置构建环境变量 `STATIC_EXPORT=1`，并将 `NEXT_PUBLIC_BASE_PATH` 留空。配置与操作见 [Cloudflare 官方静态 Next.js 部署指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)。钱包连接和 Devnet RPC 请求继续在浏览器中执行，仍需验证 RPC 对公开网站来源的访问权限。
+Cloudflare 管理员更新时，拉取 `codex/proof-of-vibe` 分支，运行 `npm ci` 与 `npm run build`，设置构建环境变量 `STATIC_EXPORT=1`，将 `NEXT_PUBLIC_BASE_PATH` 留空，部署 `out` 目录。配置与操作见 [Cloudflare 官方静态 Next.js 部署指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)，可复制步骤见 [准备清单](docs/PREPARATION.md)。钱包连接和 Devnet RPC 请求继续在浏览器中执行。
 
 本机的 .tools 运行时、node_modules、.env.local 与构建产物已列入忽略规则，不应上传到仓库。真实 Phantom 授权签名和 Devnet 签到交易仍需钱包持有人完成；活动提交入口按主办方要求填写。
 

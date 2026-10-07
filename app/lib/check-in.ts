@@ -4,10 +4,13 @@ import {
   appendTransactionMessageInstructions,
   compileTransaction,
   createTransactionMessage,
+  estimateResourceLimitsFactory,
   getBase64Decoder,
   getBase64EncodedWireTransaction,
   pipe,
   setTransactionMessageFeePayerSigner,
+  setTransactionMessageComputeUnitLimit,
+  setTransactionMessageComputeUnitPrice,
   setTransactionMessageLifetimeUsingBlockhash,
   signature,
   type TransactionMessageBytesBase64,
@@ -143,12 +146,48 @@ export async function simulateCheckIn(
   const { value: lifetime } = await rpc
     .getLatestBlockhash({ commitment: "confirmed" })
     .send({ abortSignal });
-  const transactionMessage = pipe(
+  const messageWithExplicitPrice = pipe(
     createTransactionMessage({ version: 0 }),
     (m) => setTransactionMessageFeePayerSigner(signer, m),
     (m) => setTransactionMessageLifetimeUsingBlockhash(lifetime, m),
-    (m) => appendTransactionMessageInstructions(instructions, m)
+    (m) => appendTransactionMessageInstructions(instructions, m),
+    // Phantom automatically adds priority fees to unsigned messages without
+    // compute-budget instructions. Make the Devnet price explicit before any
+    // simulation so the wallet can sign the exact message the user reviewed.
+    (m) => setTransactionMessageComputeUnitPrice(0n, m)
   );
+  let estimatedComputeUnits: number;
+  try {
+    const estimate = await estimateResourceLimitsFactory({ rpc })(
+      messageWithExplicitPrice,
+      { abortSignal, commitment: "confirmed" }
+    );
+    estimatedComputeUnits = estimate.computeUnitLimit;
+  } catch (error) {
+    // The official estimator rejects missing unitsConsumed; never silently
+    // substitute a guessed, potentially insufficient compute limit.
+    throw new Error(
+      "无法估计本次交易所需的计算预算，尚未请求签名；请检查测试币余额或稍后重新模拟。",
+      { cause: error }
+    );
+  }
+  if (
+    !Number.isSafeInteger(estimatedComputeUnits) ||
+    estimatedComputeUnits <= 0 ||
+    estimatedComputeUnits > 1_400_000
+  ) {
+    throw new Error("节点返回的计算预算无效，尚未请求签名；请重新模拟。");
+  }
+  const computeUnitLimit = Math.min(
+    1_400_000,
+    Math.ceil(estimatedComputeUnits * 1.1)
+  );
+  const transactionMessage = setTransactionMessageComputeUnitLimit(
+    computeUnitLimit,
+    messageWithExplicitPrice
+  );
+  // Simulate the final, fee-budgeted message as well as the estimator's probe.
+  // This is the exact message later checked against the wallet's signed result.
   const transaction = compileTransaction(transactionMessage);
   const encodedTransaction = getBase64EncodedWireTransaction(transaction);
   const simulation = await rpc

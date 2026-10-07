@@ -1,6 +1,6 @@
 # 活动五项准备清单
 
-按用户收到的活动通知逐项落实。本清单记录已完成的本机准备、源码上传和 GitHub Pages 备用发布；真实 Phantom 签名、Devnet 签到交易与活动正式提交仍需分别完成。
+按用户收到的活动通知逐项落实。本清单记录已完成的本机准备、源码上传、同事的 Cloudflare 发布和 GitHub Pages 备用发布；Phantom 签名兼容补丁已通过本地类型检查与 14 项测试，Cloudflare 更新及真实 Devnet 签到交易、活动正式提交仍需完成。
 
 ## 1. 电脑、充电器、手机与 Ubuntu
 
@@ -40,19 +40,40 @@ Phantom 的测试网切换步骤可见[官方说明](https://help.phantom.com/ar
 
 昵称、留言和公开钱包地址都会进入可查询的链上记录。不要在留言中填写电话、证件号码、密码或恢复信息。
 
+### 当前签名报错
+
+用户在 Cloudflare 页面签名后遇到“钱包修改了已审核交易内容”的提示，应用在广播之前拦截，本次没有由应用发送交易。Phantom 会对符合条件的交易在签名时自动添加优先费，这可能触发当前的严格交易内容一致性检查。[Phantom 官方说明](https://docs.phantom.com/developer-powertools/solana-priority-fees)
+
+本分支已实现模拟前显式设置计算预算和 0 优先费的兼容补丁，并保留签名后的严格内容检查；本地类型检查与 14 项测试通过。Cloudflare 管理员需同步本分支；完成后由钱包持有人重新模拟、签名，再验证 Devnet 确认和 Explorer 链接。
+
 ## 4. GitHub 与网页部署
 
 - 源码已上传 [CxyT-coder/proof-of-vibe-chengdu](https://github.com/CxyT-coder/proof-of-vibe-chengdu)，仓库链接已填入 [提交材料](SUBMISSION.md)。
-- [最新 GitHub Actions 检查](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)已成功完成依赖安装、类型检查、自动测试与生产构建。
+- [已发布版本 GitHub Actions 检查](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)已成功完成依赖安装、类型检查、自动测试与生产构建；此记录早于当前 Phantom 兼容补丁。
 - Vercel 的相关开发 Skill、MCP 与 CLI 已配置；官方登录页面提示无法完成登录，需要账户持有人通过 [账号恢复表单](https://vercel.com/accountrecovery)申请恢复访问。
 - [GitHub Pages 部署流程](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586402980)已成功完成；[公开 demo（备用发布）](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)已上线并通过浏览器检查。
+- 同事另发布了 [Cloudflare Pages demo](https://proof-of-vibe-chengdu.pages.dev/)，公开 URL 无法确认账户拥有者。部署者需在 Cloudflare 后台查看项目所在账户与成员权限，确认负责更新网站的管理员。
 - 公开页面的 Chrome 桌面与手机视口、钱包菜单和输入预览已验证，真实 Devnet RPC 返回 HTTP 200，页面与静态资源错误均为 0。真实 Phantom 授权签名及签到仍由钱包持有人完成。
 
 [Vercel AI 开发资源](https://vercel.com/docs/agent-resources)、[Vercel Next.js 部署说明](https://vercel.com/docs/frameworks/full-stack/nextjs)。恢复 Vercel 访问后，仍可导入现有仓库，使用 Node.js 24.x 与默认 Next.js 构建设置部署。
 
-Cloudflare 可作为后续选择：按 [官方静态 Next.js 指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)配置静态导出，选择 `Next.js (Static HTML Export)` 预设、`npx next build` 构建命令和 `out` 输出目录。针对本项目设置构建环境变量 `STATIC_EXPORT=1`，将 `NEXT_PUBLIC_BASE_PATH` 留空；需要 AI 平台工具时参考 [官方 Agent Setup](https://developers.cloudflare.com/agent-setup/)。
+Cloudflare 页面已通过 Chrome 桌面与手机视口、钱包菜单和输入预览检查，HTTP 200、真实 Devnet RPC HTTP 200，页面与静态资源错误均为 0。按 [官方静态 Next.js 指南](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/)更新时，使用 `Next.js (Static HTML Export)` 预设、`npm run build` 构建命令与 `out` 输出目录。针对本项目设置构建环境变量 `STATIC_EXPORT=1`，将 `NEXT_PUBLIC_BASE_PATH` 留空；需要 AI 平台工具时参考 [官方 Agent Setup](https://developers.cloudflare.com/agent-setup/)。
 
 源码、公开网页 URL、CI 与部署成功记录均已填入 [提交材料](SUBMISSION.md)。活动指定入口由主办方提供后，再正式提交。
+
+### 给 Cloudflare 部署者的更新步骤
+
+以下内容供部署者复制操作，同步 `codex/proof-of-vibe` 分支中的兼容补丁。使用 Node.js 24+，保持锁文件和现有依赖版本。
+
+```bash
+git fetch origin
+git checkout codex/proof-of-vibe
+git pull --ff-only origin codex/proof-of-vibe
+npm ci
+STATIC_EXPORT=1 NEXT_PUBLIC_BASE_PATH='' npm run build
+```
+
+Cloudflare Pages 的构建分支设置为 `codex/proof-of-vibe`，构建命令为 `npm run build`，环境变量设置为 `STATIC_EXPORT=1`，`NEXT_PUBLIC_BASE_PATH` 留空，输出目录为 `out`。直接上传静态文件时上传重新生成的 `out`。完成后检查站点所用提交，再由钱包持有人重新模拟和签名；只有 Devnet 已确认并取得 Explorer 链接后，才记录真实签到成功。
 
 ### Vercel 账号恢复说明
 
@@ -70,7 +91,7 @@ Please help me restore access to my account so I can complete the deployment.
 
 项目来自官方 Kit Next.js 模板，源提交为 `aab62d27b01d44c6d2eba3c6da6d3bf038726ecc`，沿用模板已有主要依赖版本。
 
-本地 Ubuntu 生产页面和 [公开 demo](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)均已通过浏览器检查，真实 Devnet RPC 请求返回 HTTP 200；构建、类型检查与自动测试结果可查看 [最新 CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)。真实 Phantom 签名与链上签到仍需钱包持有人完成。
+本地 Ubuntu 生产页面、[GitHub Pages 备用](https://cxyt-coder.github.io/proof-of-vibe-chengdu/)和 [Cloudflare 页面](https://proof-of-vibe-chengdu.pages.dev/)均已通过浏览器检查，真实 Devnet RPC 请求返回 HTTP 200；此前构建、类型检查与自动测试结果可查看 [CI 成功记录](https://github.com/CxyT-coder/proof-of-vibe-chengdu/actions/runs/37586403285)。本次 Phantom 兼容补丁已通过本地类型检查与全部 14 项测试，Cloudflare 更新、真实签名与链上签到仍需部署者和钱包持有人复测。
 
 在 PowerShell 启动和检查：
 
